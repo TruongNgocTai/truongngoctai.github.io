@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kiến trúc Hệ thống Web chịu tải cao: Từ Modular Monolith đến Microservices thực chiến | Trương Ngọc Tài Blog</title>
+  <meta name="description" content="Khi nào doanh nghiệp nên bắt đầu với Modular Monolith và khi nào cần tách Microservices? Phân tích chiến lược Caching đa tầng với Redis, tối ưu truy vấn PostgreSQL và xử lý bất đồng bộ qua Message Queue." />
+  <meta name="author" content="Trương Ngọc Tài" />
+  <link rel="canonical" href="https://truongngoctai.github.io/posts/kien-truc-he-thong-web-chiu-tai-cao.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://truongngoctai.github.io/posts/kien-truc-he-thong-web-chiu-tai-cao.html" />
+  <meta property="og:title" content="Kiến trúc Hệ thống Web chịu tải cao: Từ Modular Monolith đến Microservices thực chiến" />
+  <meta property="og:description" content="Khi nào doanh nghiệp nên bắt đầu với Modular Monolith và khi nào cần tách Microservices? Phân tích chiến lược Caching đa tầng với Redis, tối ưu truy vấn PostgreSQL và xử lý bất đồng bộ qua Message Queue." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Kiến trúc Hệ thống Web chịu tải cao: Từ Modular Monolith đến Microservices thực chiến",
+    "description": "Khi nào doanh nghiệp nên bắt đầu với Modular Monolith và khi nào cần tách Microservices? Phân tích chiến lược Caching đa tầng với Redis, tối ưu truy vấn PostgreSQL và xử lý bất đồng bộ qua Message Queue.",
+    "datePublished": "2026-10-12",
+    "author": {
+      "@type": "Person",
+      "name": "Trương Ngọc Tài",
+      "url": "https://truongngoctai.github.io/"
+    },
+    "mainEntityOfPage": "https://truongngoctai.github.io/posts/kien-truc-he-thong-web-chiu-tai-cao.html"
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="../index.html" class="brand-logo">
+        <div class="brand-badge">TNT</div>
+        <div>
+          <span>Trương Ngọc Tài</span>
+          <span class="brand-sub">Web Systems &bull; Private Local AI</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Điều hướng">
+        <a href="../index.html#dich-vu">Dịch vụ</a>
+        <a href="../index.html#ai-local">Giải pháp AI Local</a>
+        <a href="../index.html#blog" class="active">Blog CNTT &amp; AI</a>
+        <a href="../index.html#lien-he">Liên hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Chuyển chế độ Sáng/Tối">☀️</button>
+        <a href="../index.html#lien-he" class="btn btn-primary">Tư vấn Dự án</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="article-container">
+    <a href="../index.html#blog" class="read-more" style="margin-bottom: 1.5rem; display: inline-flex;">&larr; Quay lại danh sách bài viết</a>
+
+    <article>
+      <header class="article-header">
+        <div class="post-meta">
+          <span class="post-category">Kiến trúc Web &amp; Hệ thống</span>
+          <span>12/10/2026</span>
+          <span>&bull; 7 phút đọc</span>
+        </div>
+        <h1>Kiến trúc Hệ thống Web chịu tải cao: Từ Modular Monolith đến Microservices thực chiến</h1>
+        <p style="color: var(--text-secondary); font-size: 1.08rem;">Khi nào doanh nghiệp nên bắt đầu với Modular Monolith và khi nào cần tách Microservices? Phân tích chiến lược Caching đa tầng với Redis, tối ưu truy vấn PostgreSQL và xử lý bất đồng bộ qua Message Queue.</p>
+        <div class="tech-stack-pills" style="border: none; padding-top: 0.75rem;">
+          <span class="pill">#SystemDesign</span><span class="pill">#PostgreSQL</span><span class="pill">#Redis</span><span class="pill">#Microservices</span>
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p>Khi xây dựng các hệ thống Web phục vụ hoạt động cốt lõi của doanh nghiệp (như thương mại điện tử, cổng dịch vụ khách hàng hay hệ thống ERP/CRM quy mô lớn), một trong những sai lầm phổ biến nhất là <strong>tách Microservices quá sớm</strong> khi biên giới nghiệp vụ (Domain Boundaries) chưa rõ ràng, hoặc ngược lại, viết một khối Monolith rối rắm không thể mở rộng.</p>
+<p>Bài viết này đúc kết lộ trình thiết kế kiến trúc Web hiện đại giúp tối ưu tốc độ phát triển ở giai đoạn đầu nhưng sẵn sàng chịu tải hàng chục nghìn truy cập đồng thời.</p>
+<h2>1. Khởi đầu thông minh với Modular Monolith</h2>
+<p>Thay vì vận hành hàng chục dịch vụ nhỏ ngay từ ngày đầu với chi phí DevOps phức tạp, kiến trúc <strong>Modular Monolith</strong> tổ chức mã nguồn thành các phân hệ độc lập (ví dụ: <code>Identity</code>, <code>Catalog</code>, <code>Ordering</code>, <code>Billing</code>, <code>AI-Assistant</code>).</p>
+<ul>
+<li>Mỗi phân hệ sở hữu schema hoặc nhóm bảng dữ liệu riêng biệt, <strong>tuyệt đối không JOIN trực tiếp</strong> sang bảng nội bộ của phân hệ khác.</li>
+<li>Các module giao tiếp với nhau thông qua Public Interface hoặc In-memory Event Bus.</li>
+<li>Khi một phân hệ (chẳng hạn <code>AI-Assistant</code> hoặc <code>Ordering</code>) cần mở rộng độc lập trên cụm máy chủ riêng, bạn có thể tách module đó thành Microservice trong vài giờ mà không phải viết lại toàn bộ hệ thống.</li>
+</ul>
+<h2>2. Tối ưu hóa tầng Cơ sở dữ liệu PostgreSQL (80% điểm nghẽn nằm ở đây)</h2>
+<p>Hầu hết sự cố chậm hệ thống Web không đến từ ngôn ngữ lập trình mà đến từ truy vấn cơ sở dữ liệu chưa tối ưu:</p>
+<ol>
+<li><strong>Connection Pooling với PgBouncer</strong>: Tránh cạn kiệt kết nối vật lý khi lưu lượng truy cập tăng đột biến.</li>
+<li><strong>Chiến lược Indexing thực tiễn</strong>: Sử dụng Composite Index đúng thứ tự độ chọn lọc, Partial Index cho các trạng thái hoạt động (<code>WHERE status = &#x27;PENDING&#x27;</code>) và GIN Index cho tìm kiếm JSONB/Full-text.</li>
+<li><strong>Tách luồng Đọc/Ghi (Read Replicas)</strong>: Đẩy các truy vấn thống kê, báo cáo Dashboard sang bản sao Read Replica để không khóa (lock) luồng giao dịch chính.</li>
+</ol>
+<pre><code>-- Ví dụ: Partial Index giúp tăng tốc truy vấn đơn hàng đang chờ xử lý gấp 15 lần
+CREATE INDEX CONCURRENTLY idx_orders_pending_created
+ON orders (tenant_id, created_at DESC)
+WHERE status IN (&#x27;PENDING&#x27;, &#x27;PROCESSING&#x27;);</code></pre>
+<h2>3. Chiến lược Caching đa tầng &amp; Xử lý bất đồng bộ</h2>
+<p>Để đạt thời gian phản hồi API dưới <strong>50ms (p95)</strong>, hệ thống cần kết hợp:</p>
+<ul>
+<li><strong>Edge / CDN Caching</strong>: Lưu đệm tài nguyên tĩnh và các trang nội dung công khai.</li>
+<li><strong>Application Cache với Redis</strong>: Sử dụng mẫu <em>Cache-Aside</em> kết hợp <em>Stale-While-Revalidate</em> để tránh hiện tượng <em>Cache Stampede</em> khi một khóa nóng hết hạn cùng lúc.</li>
+<li><strong>Background Workers / Message Queue (RabbitMQ / Redis Streams)</strong>: Mọi tác vụ nặng như xuất báo cáo Excel lớn, gửi email thông báo, đồng bộ hóa dữ liệu ERP hay gọi mô hình AI phân tích chứng từ đều phải được đẩy sang hàng đợi bất đồng bộ kèm cơ chế <em>Idempotency Key</em> chống xử lý trùng lặp.</li>
+</ul>
+      </div>
+    </article>
+
+    <!-- Call to Action Box inside Post -->
+    <div class="panel-card" style="margin-top: 3.5rem; background: var(--gradient-surface);">
+      <h3>Bạn cần tư vấn triển khai Hệ thống Web hoặc AI Local cho doanh nghiệp?</h3>
+      <p style="color: var(--text-secondary); margin: 0.5rem 0 1.25rem;">
+        Tôi cung cấp dịch vụ thiết kế kiến trúc, phát triển hệ thống phần mềm Web theo yêu cầu và triển khai giải pháp Private LLM / RAG chạy nội bộ bảo mật dữ liệu 100%.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.85rem;">
+        <a href="../index.html#lien-he" class="btn btn-primary">Nhận tư vấn Kiến trúc &amp; Báo giá &rarr;</a>
+        <a href="../index.html#ai-local" class="btn btn-outline">Thử công cụ tính cấu hình GPU</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Trương Ngọc Tài</strong> &mdash; Blog CNTT, AI &amp; Dịch vụ Phát triển Hệ thống Web, AI Local.
+      </div>
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="../index.html">Trang chủ</a>
+        <a href="../index.html#dich-vu">Dịch vụ</a>
+        <a href="../index.html#lien-he">Liên hệ</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

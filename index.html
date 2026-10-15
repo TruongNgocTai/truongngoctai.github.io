@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trương Ngọc Tài | Blog CNTT, AI & Dịch vụ Phát triển Hệ thống Web, AI Local</title>
+  <meta name="description" content="Chuyên trang chia sẻ kiến thức Công nghệ thông tin, Kiến trúc Web, AI ứng dụng và cung cấp dịch vụ phát triển Hệ thống Web theo yêu cầu, triển khai AI Local (Private LLM / RAG nội bộ) bảo mật cao cho doanh nghiệp." />
+  <meta name="keywords" content="Trương Ngọc Tài, AI Local, Private LLM, RAG nội bộ, phát triển hệ thống web, thiết kế phần mềm web, vLLM, Ollama, kiến trúc hệ thống, blog công nghệ thông tin" />
+  <meta name="author" content="Trương Ngọc Tài" />
+  <link rel="canonical" href="https://truongngoctai.github.io/" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://truongngoctai.github.io/" />
+  <meta property="og:title" content="Trương Ngọc Tài | Blog CNTT, AI & Giải pháp Hệ thống Web, AI Local" />
+  <meta property="og:description" content="Chia sẻ chuyên sâu về CNTT, AI thực chiến & Tư vấn triển khai Hệ thống Web chịu tải cao, Private Local LLM/RAG bảo mật tuyệt đối." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Trương Ngọc Tài",
+        "url": "https://truongngoctai.github.io/",
+        "email": "mailto:truongngoctai.it.hcmus@gmail.com",
+        "jobTitle": "Full-Stack Web Architect & Local AI Engineer",
+        "sameAs": [
+          "https://github.com/TruongNgocTai"
+        ]
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Trương Ngọc Tài — Giải pháp Hệ thống Web & AI Local",
+        "url": "https://truongngoctai.github.io/#dich-vu",
+        "email": "truongngoctai.it.hcmus@gmail.com",
+        "description": "Dịch vụ tư vấn, thiết kế và phát triển hệ thống Web hiệu năng cao, triển khai hệ thống AI Local (Private LLM, RAG nội bộ, AI Agents) bảo mật dữ liệu tuyệt đối cho doanh nghiệp.",
+        "areaServed": "VN"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-badge">TNT</div>
+        <div>
+          <span>Trương Ngọc Tài</span>
+          <span class="brand-sub">Web Systems &bull; Private Local AI</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Điều hướng chính">
+        <a href="#dich-vu">Dịch vụ</a>
+        <a href="#ai-local">Giải pháp AI Local</a>
+        <a href="#blog">Blog CNTT &amp; AI</a>
+        <a href="#quy-trinh">Quy trình</a>
+        <a href="#lien-he">Liên hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Chuyển đổi giao diện Sáng/Tối" title="Chuyển chế độ Sáng/Tối">☀️</button>
+        <a href="#lien-he" class="btn btn-primary">Tư vấn Dự án</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>Engineering Blog &amp; Enterprise Solutions</span>
+          </div>
+          <h1>
+            Kiến tạo <span class="text-gradient">Hệ thống Web Hiện đại</span> &amp; Triển khai <span class="text-gradient">AI Local Nội bộ</span>
+          </h1>
+          <p class="hero-lead">
+            Nơi chia sẻ kiến thức chuyên sâu về Công nghệ thông tin, Kiến trúc Hệ thống, AI ứng dụng — đồng thời đồng hành cùng doanh nghiệp xây dựng <strong>Web App hiệu năng cao</strong> và <strong>Hệ thống Private LLM / RAG chạy cục bộ</strong> bảo mật dữ liệu 100%.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#dich-vu" class="btn btn-primary">Khám phá Dịch vụ Web &amp; AI Local</a>
+            <a href="#blog" class="btn btn-outline">Đọc bài viết Kỹ thuật &rarr;</a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <strong>100% On-Premise</strong>
+              <span>Dữ liệu AI lưu trữ nội bộ, không rò rỉ</span>
+            </div>
+            <div class="metric-item">
+              <strong>High-Load Web</strong>
+              <span>Kiến trúc chuẩn SEO, tối ưu tốc độ &amp; bảo mật</span>
+            </div>
+            <div class="metric-item">
+              <strong>End-to-End</strong>
+              <span>Từ tư vấn kiến trúc đến bàn giao vận hành</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Stack Preview -->
+        <div class="terminal-card" aria-label="Minh họa hệ thống AI Local và Web">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="terminal-title">truongngoctai@ai-server: ~/production-stack</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="cmd-comment"># 1. Khởi chạy Inference Engine cho Private LLM</span></div>
+            <div><span class="cmd-prompt">$</span> vllm serve Qwen/Qwen2.5-32B-Instruct-AWQ \</div>
+            <div>&nbsp;&nbsp;<span class="cmd-flag">--quantization</span> awq <span class="cmd-flag">--max-model-len</span> 32768 \</div>
+            <div>&nbsp;&nbsp;<span class="cmd-flag">--gpu-memory-utilization</span> 0.90</div>
+            <div class="cmd-output">&rarr; Engine ready on <span class="cmd-highlight">http://10.0.0.15:8000/v1</span> (Zero External API)</div>
+            <br />
+            <div><span class="cmd-comment"># 2. Kết nối Vector DB &amp; Hệ thống Web Gateway</span></div>
+            <div><span class="cmd-prompt">$</span> docker compose -f stack.prod.yml up -d</div>
+            <div class="cmd-output">✔ container <span class="cmd-highlight">qdrant-vector-db</span>   Healthy (142k internal docs)</div>
+            <div class="cmd-output">✔ container <span class="cmd-highlight">rag-orchestrator</span>  Healthy (Hybrid Search + Rerank)</div>
+            <div class="cmd-output">✔ container <span class="cmd-highlight">enterprise-web-ui</span> Healthy (TLS 1.3 / RBAC Auth)</div>
+            <br />
+            <div><span class="cmd-comment"># 3. Trạng thái bảo mật dữ liệu</span></div>
+            <div class="cmd-output"><span class="cmd-highlight">[SECURITY]</span> Data Egress: <strong>BLOCKED</strong> | Latency: <strong>38ms TTFT</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="dich-vu">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow">Dịch vụ Công nghệ Chuyên sâu</div>
+          <h2>Giải pháp Phát triển Hệ thống Web &amp; AI Local</h2>
+          <p>Thiết kế kiến trúc may đo theo bài toán thực tế của doanh nghiệp: Tối ưu hiệu năng, làm chủ mã nguồn và bảo mật tuyệt đối tài sản dữ liệu.</p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Service 1 -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon">🌐</div>
+              <h3>Phát triển Hệ thống Web &amp; Phần mềm</h3>
+              <p>Xây dựng ứng dụng Web toàn diện từ cổng thông tin, thương mại điện tử chuyên biệt đến hệ thống quản trị vận hành nội bộ.</p>
+              <ul class="feature-list">
+                <li>Thiết kế &amp; phát triển Web App theo yêu cầu (ERP, CRM, CMS, LMS, Dashboard điều hành).</li>
+                <li>Xây dựng RESTful API / GraphQL, kiến trúc Modular Monolith &amp; Microservices chịu tải cao.</li>
+                <li>Tối ưu Core Web Vitals, chuẩn SEO kỹ thuật &amp; tích hợp cổng thanh toán, hóa đơn, bên thứ ba.</li>
+                <li>Phân quyền người dùng đa tầng (RBAC/ABAC), kiểm thử bảo mật chống lỗ hổng OWASP.</li>
+              </ul>
+            </div>
+            <div class="tech-stack-pills">
+              <span class="pill">TypeScript / Node.js</span>
+              <span class="pill">Next.js / React</span>
+              <span class="pill">Python / FastAPI</span>
+              <span class="pill">PostgreSQL / Redis</span>
+            </div>
+          </article>
+
+          <!-- Service 2 -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon">🧠</div>
+              <h3>Triển khai AI Local &amp; Private RAG</h3>
+              <p>Đưa sức mạnh của mô hình ngôn ngữ lớn (LLM) về chạy trực tiếp trên máy chủ của doanh nghiệp — không gửi dữ liệu ra đám mây.</p>
+              <ul class="feature-list">
+                <li>Triển khai LLM mã nguồn mở (Qwen, Llama 3, DeepSeek, Mistral) qua vLLM, Ollama, Llama.cpp.</li>
+                <li>Xây dựng hệ thống <strong>Private RAG</strong>: Tra cứu quy trình, hợp đồng, tài liệu kỹ thuật PDF/Word/Excel kèm trích dẫn nguồn chính xác.</li>
+                <li>Giao diện Chat AI nội bộ (OpenWebUI / Custom Portal) phân quyền theo phòng ban, lưu lịch sử kiểm toán.</li>
+                <li>Tinh chỉnh mô hình (Fine-tuning LoRA/QLoRA) theo văn phong và thuật ngữ chuyên ngành.</li>
+              </ul>
+            </div>
+            <div class="tech-stack-pills">
+              <span class="pill">vLLM / Ollama</span>
+              <span class="pill">Qdrant / Milvus</span>
+              <span class="pill">Hybrid RAG + Reranker</span>
+              <span class="pill">LoRA Fine-tuning</span>
+            </div>
+          </article>
+
+          <!-- Service 3 -->
+          <article class="service-card">
+            <div>
+              <div class="service-icon">⚙️</div>
+              <h3>AI Agents, Tự động hóa &amp; Hạ tầng</h3>
+              <p>Kết hợp AI Agent trực tiếp vào luồng dữ liệu Web/ERP sẵn có và tối ưu hóa hạ tầng máy chủ GPU/Linux vận hành ổn định 24/7.</p>
+              <ul class="feature-list">
+                <li>Xây dựng AI Agent tự động phân loại email, trích xuất chứng từ/hóa đơn (OCR + Vision LLM) và lập báo cáo.</li>
+                <li>Tích hợp Function Calling / MCP kết nối trực tiếp cơ sở dữ liệu SQL, CRM và công cụ quản lý dự án.</li>
+                <li>Tư vấn cấu hình phần cứng GPU Server (NVIDIA RTX/L40S/A100) tối ưu ngân sách đầu tư.</li>
+                <li>Thiết kế CI/CD, Docker/Kubernetes, giám sát Prometheus/Grafana và sao lưu tự động.</li>
+              </ul>
+            </div>
+            <div class="tech-stack-pills">
+              <span class="pill">AI Agents / MCP</span>
+              <span class="pill">Vision OCR</span>
+              <span class="pill">Docker / Linux</span>
+              <span class="pill">CUDA / GPU Tuning</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Local AI + Interactive VRAM Calculator -->
+    <section id="ai-local">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow">Private AI Architecture</div>
+          <h2>Vì sao Doanh nghiệp chuyển dịch sang AI Local?</h2>
+          <p>So sánh thực tế giữa việc thuê Cloud AI API bên thứ ba và tự chủ hạ tầng AI Local (On-Premise / Private Cloud) cùng công cụ ước tính cấu hình GPU.</p>
+        </div>
+
+        <div class="architecture-split">
+          <!-- Comparison Table -->
+          <div class="panel-card">
+            <h3>So sánh AI Local vs. Cloud AI API</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">Đánh giá theo các tiêu chí cốt lõi khi triển khai cho tổ chức và doanh nghiệp.</p>
+
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Tiêu chí</th>
+                  <th>AI Local (On-Premise)</th>
+                  <th>Cloud AI API</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Bảo mật dữ liệu</strong></td>
+                  <td class="badge-good">100% nội bộ (Air-gapped / LAN)</td>
+                  <td class="badge-warn">Gửi dữ liệu qua máy chủ bên thứ 3</td>
+                </tr>
+                <tr>
+                  <td><strong>Chi phí dài hạn</strong></td>
+                  <td class="badge-good">Cố định, không giới hạn Token</td>
+                  <td class="badge-warn">Tăng lũy tiến theo số người dùng</td>
+                </tr>
+                <tr>
+                  <td><strong>Độ trễ &amp; Ổn định</strong></td>
+                  <td class="badge-good">Mạng nội bộ cực nhanh, không đứt cáp</td>
+                  <td class="badge-warn">Phụ thuộc đường truyền quốc tế &amp; Rate-limit</td>
+                </tr>
+                <tr>
+                  <td><strong>Khả năng tùy biến</strong></td>
+                  <td class="badge-good">Toàn quyền Fine-tune, kiểm soát System</td>
+                  <td class="badge-warn">Giới hạn theo chính sách nhà cung cấp</td>
+                </tr>
+                <tr>
+                  <td><strong>Tích hợp ERP/DB nội bộ</strong></td>
+                  <td class="badge-good">Kết nối trực tiếp trong mạng Private</td>
+                  <td class="badge-warn">Phải mở cổng kết nối ra Internet</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Interactive GPU / VRAM Calculator -->
+          <div class="panel-card">
+            <h3>Công cụ Ước tính Cấu hình GPU cho AI Local</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">Chọn quy mô mô hình LLM và mức lượng tử hóa để tham khảo phần cứng đề xuất:</p>
+
+            <div class="calc-group">
+              <label for="calc-model">1. Quy mô Mô hình (Model Size)</label>
+              <select id="calc-model" class="calc-select">
+                <option value="8">8B Parameters (Llama-3.1-8B / Qwen2.5-7B — Nhanh, tiết kiệm)</option>
+                <option value="14" selected>14B Parameters (Qwen2.5-14B / Phi-4 — Cân bằng tối ưu)</option>
+                <option value="32">32B Parameters (Qwen2.5-32B / DeepSeek-R1-32B — Phân tích sâu)</option>
+                <option value="70">70B Parameters (Llama-3.3-70B / Qwen2.5-72B — Enterprise)</option>
+              </select>
+            </div>
+
+            <div class="calc-group">
+              <label for="calc-quant">2. Mức Lượng tử hóa (Quantization)</label>
+              <select id="calc-quant" class="calc-select">
+                <option value="0.6" selected>4-bit (AWQ / GGUF Q4_K_M — Khuyên dùng Production)</option>
+                <option value="1.05">8-bit (FP8 / GGUF Q8_0 — Độ chính xác rất cao)</option>
+                <option value="2.0">16-bit (FP16 / BF16 — Nguyên bản, cần VRAM lớn)</option>
+              </select>
+            </div>
+
+            <div class="calc-group">
+              <label for="calc-context">3. Ngữ cảnh &amp; Số lượng truy cập đồng thời (KV Cache)</label>
+              <select id="calc-context" class="calc-select">
+                <option value="2.5">Tiêu chuẩn (8K - 16K Context, 1 - 5 người dùng đồng thời)</option>
+                <option value="5.5" selected>Doanh nghiệp vừa (32K Context RAG, 5 - 15 người dùng)</option>
+                <option value="11.0">Hệ thống lớn (64K+ Context, 20+ người dùng đồng thời)</option>
+              </select>
+            </div>
+
+            <div class="calc-result" aria-live="polite">
+              <div class="calc-result-row">
+                <span>VRAM tối thiểu ước tính:</span>
+                <strong id="calc-vram-output">~13.9 GB VRAM</strong>
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                <div><strong>Phần cứng đề xuất:</strong> <span id="calc-gpu-output">1x NVIDIA RTX 4090 (24GB)</span></div>
+                <div style="margin-top: 0.25rem;"><strong>Tốc độ sinh văn bản:</strong> <span id="calc-speed-output">~55 - 85 tokens/s</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow">Technical Notes &amp; Insights</div>
+          <h2>Blog Chia sẻ Kiến thức CNTT &amp; AI</h2>
+          <p>Các bài viết kỹ thuật đúc kết từ quá trình thiết kế kiến trúc hệ thống Web, tối ưu hóa cơ sở dữ liệu và triển khai LLM/RAG thực tế.</p>
+        </div>
+
+        <div class="blog-controls">
+          <div class="category-tabs" role="tablist" aria-label="Chuyên mục bài viết">
+            <button class="tab-btn active" data-filter="all">Tất cả bài viết</button>
+            <button class="tab-btn" data-filter="ai-local">AI &amp; Local LLM</button>
+            <button class="tab-btn" data-filter="web-system">Kiến trúc Web &amp; Hệ thống</button>
+            <button class="tab-btn" data-filter="devops-security">Tối ưu GPU &amp; Bảo mật</button>
+          </div>
+
+          <div class="search-box">
+            <input type="search" id="blog-search" placeholder="Tìm bài viết (VD: RAG, vLLM, Microservices...)" aria-label="Tìm kiếm bài viết blog" />
+          </div>
+        </div>
+
+        <div class="blog-grid">
+          <!-- Post 1 -->
+          <article class="post-card" data-category="ai-local" data-title="Hướng dẫn triển khai Hệ thống AI Local & RAG nội bộ cho doanh nghiệp với vLLM và Qdrant" data-tags="ai local rag vllm qdrant llm bao mat">
+            <div>
+              <div class="post-meta">
+                <span class="post-category">AI &amp; Local LLM</span>
+                <span>15/10/2026</span>
+                <span>&bull; 8 phút đọc</span>
+              </div>
+              <h3>
+                <a href="posts/trien-khai-ai-local-rag-doanh-nghiep.html">
+                  Hướng dẫn triển khai Hệ thống AI Local &amp; RAG nội bộ cho doanh nghiệp với vLLM và Qdrant
+                </a>
+              </h3>
+              <p class="post-excerpt">
+                Kiến trúc chi tiết giúp doanh nghiệp xây dựng hệ thống hỏi đáp tài liệu nội bộ (Private RAG) kết hợp Hybrid Search (Dense + BM25), Reranker và vLLM chạy hoàn toàn trong mạng LAN không cần Internet.
+              </p>
+            </div>
+            <div class="post-footer">
+              <div class="tech-stack-pills" style="border: none; padding: 0;">
+                <span class="pill">#vLLM</span>
+                <span class="pill">#Qdrant</span>
+                <span class="pill">#PrivateRAG</span>
+              </div>
+              <a href="posts/trien-khai-ai-local-rag-doanh-nghiep.html" class="read-more">Đọc chi tiết &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Post 2 -->
+          <article class="post-card" data-category="web-system" data-title="Kiến trúc Hệ thống Web chịu tải cao: Từ Modular Monolith đến Microservices thực chiến" data-tags="kien truc web backend microservices postgresql redis high load">
+            <div>
+              <div class="post-meta">
+                <span class="post-category">Kiến trúc Web &amp; Hệ thống</span>
+                <span>12/10/2026</span>
+                <span>&bull; 7 phút đọc</span>
+              </div>
+              <h3>
+                <a href="posts/kien-truc-he-thong-web-chiu-tai-cao.html">
+                  Kiến trúc Hệ thống Web chịu tải cao: Từ Modular Monolith đến Microservices thực chiến
+                </a>
+              </h3>
+              <p class="post-excerpt">
+                Khi nào doanh nghiệp nên bắt đầu với Modular Monolith và khi nào cần tách Microservices? Phân tích chiến lược Caching đa tầng với Redis, tối ưu truy vấn PostgreSQL và xử lý bất đồng bộ qua Message Queue.
+              </p>
+            </div>
+            <div class="post-footer">
+              <div class="tech-stack-pills" style="border: none; padding: 0;">
+                <span class="pill">#SystemDesign</span>
+                <span class="pill">#PostgreSQL</span>
+                <span class="pill">#Scalability</span>
+              </div>
+              <a href="posts/kien-truc-he-thong-web-chiu-tai-cao.html" class="read-more">Đọc chi tiết &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Post 3 -->
+          <article class="post-card" data-category="devops-security" data-title="Tối ưu phần cứng GPU & Lượng tử hóa (AWQ, GGUF, FP8) khi vận hành LLM Local" data-tags="gpu vram quantization awq gguf fp8 ollama llama.cpp">
+            <div>
+              <div class="post-meta">
+                <span class="post-category">Tối ưu GPU &amp; Bảo mật</span>
+                <span>08/10/2026</span>
+                <span>&bull; 9 phút đọc</span>
+              </div>
+              <h3>
+                <a href="posts/toi-uu-gpu-quantization-llm-local.html">
+                  Tối ưu phần cứng GPU &amp; Lượng tử hóa (AWQ, GGUF, FP8) khi vận hành LLM Local
+                </a>
+              </h3>
+              <p class="post-excerpt">
+                Giải mã các chuẩn lượng tử hóa mô hình ngôn ngữ lớn: Sự khác biệt giữa GGUF, AWQ, GPTQ và FP8. Cách tính toán KV Cache, PagedAttention và tối ưu thông lượng phục vụ nhiều người dùng đồng thời.
+              </p>
+            </div>
+            <div class="post-footer">
+              <div class="tech-stack-pills" style="border: none; padding: 0;">
+                <span class="pill">#Quantization</span>
+                <span class="pill">#GPU</span>
+                <span class="pill">#Inference</span>
+              </div>
+              <a href="posts/toi-uu-gpu-quantization-llm-local.html" class="read-more">Đọc chi tiết &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Post 4 -->
+          <article class="post-card" data-category="ai-local" data-title="Tích hợp AI Agent vào Hệ thống Quản trị Web: Tự động hóa quy trình nghiệp vụ an toàn" data-tags="ai agent mcp function calling web erp crm automation">
+            <div>
+              <div class="post-meta">
+                <span class="post-category">AI &amp; Local LLM</span>
+                <span>02/10/2026</span>
+                <span>&bull; 6 phút đọc</span>
+              </div>
+              <h3>
+                <a href="posts/tich-hop-ai-agent-he-thong-web.html">
+                  Tích hợp AI Agent vào Hệ thống Quản trị Web: Tự động hóa quy trình nghiệp vụ an toàn
+                </a>
+              </h3>
+              <p class="post-excerpt">
+                Vượt qua giới hạn của Chatbot đơn thuần: Thiết kế AI Agent có khả năng gọi hàm (Tool/Function Calling), truy vấn dữ liệu báo cáo theo quyền hạn người dùng (RBAC) và cơ chế Human-in-the-Loop chống sai sót.
+              </p>
+            </div>
+            <div class="post-footer">
+              <div class="tech-stack-pills" style="border: none; padding: 0;">
+                <span class="pill">#AIAgents</span>
+                <span class="pill">#Automation</span>
+                <span class="pill">#EnterpriseWeb</span>
+              </div>
+              <a href="posts/tich-hop-ai-agent-he-thong-web.html" class="read-more">Đọc chi tiết &rarr;</a>
+            </div>
+          </article>
+        </div>
+
+        <div id="blog-empty-state" style="display: none; text-align: center; padding: 3rem 1rem; color: var(--text-secondary);">
+          Không tìm thấy bài viết phù hợp với từ khóa của bạn. Hãy thử từ khóa khác (ví dụ: <em>RAG, vLLM, GPU, Web, Agent</em>).
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="quy-trinh">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow">Workflow</div>
+          <h2>Quy trình Tư vấn &amp; Triển khai Dự án</h2>
+          <p>Quy trình làm việc rõ ràng, minh bạch theo từng giai đoạn giúp kiểm soát tiến độ, chi phí và chất lượng kỹ thuật.</p>
+        </div>
+
+        <div class="process-grid">
+          <div class="step-card">
+            <span class="step-number">BƯỚC 01</span>
+            <h4>Khảo sát &amp; Tư vấn Kiến trúc</h4>
+            <p>Phân tích quy trình nghiệp vụ, khối lượng dữ liệu, yêu cầu bảo mật và đề xuất kiến trúc Web / cấu hình phần cứng AI Local phù hợp ngân sách.</p>
+          </div>
+
+          <div class="step-card">
+            <span class="step-number">BƯỚC 02</span>
+            <h4>Xây dựng PoC &amp; Thiết kế</h4>
+            <p>Triển khai bản thử nghiệm (Proof of Concept) trên dữ liệu mẫu thực tế của doanh nghiệp để kiểm chứng tốc độ, độ chính xác trước khi mở rộng.</p>
+          </div>
+
+          <div class="step-card">
+            <span class="step-number">BƯỚC 03</span>
+            <h4>Phát triển &amp; Tích hợp Hệ thống</h4>
+            <p>Lập trình giao diện Web, Backend API, pipeline RAG/Agent, thiết lập bảo mật phân quyền và kiểm thử chịu tải toàn diện.</p>
+          </div>
+
+          <div class="step-card">
+            <span class="step-number">BƯỚC 04</span>
+            <h4>Bàn giao, Đào tạo &amp; Đồng hành</h4>
+            <p>Triển khai lên Server On-Premise hoặc Private Cloud, bàn giao toàn bộ mã nguồn, tài liệu vận hành và hỗ trợ kỹ thuật dài hạn.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="lien-he">
+      <div class="container">
+        <div class="contact-box">
+          <div>
+            <div class="eyebrow">Kết nối &amp; Hợp tác</div>
+            <h2 style="font-size: 2rem; margin-bottom: 0.75rem;">Trao đổi về Hệ thống Web hoặc Dự án AI Local của bạn</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Bạn đang tìm kiếm đối tác phát triển hệ thống phần mềm Web chuyên biệt, hoặc muốn xây dựng hệ thống AI/LLM chạy nội bộ bảo mật dữ liệu? Hãy gửi thông tin để nhận tư vấn kiến trúc và ước tính chi phí chi tiết.
+            </p>
+
+            <div class="contact-info-list">
+              <div class="contact-info-item">
+                <span>📧</span>
+                <div>
+                  <strong style="display: block; font-size: 0.85rem; color: var(--text-secondary);">Email trực tiếp</strong>
+                  <a href="mailto:truongngoctai.it.hcmus@gmail.com" style="color: var(--accent-primary); font-weight: 600;">truongngoctai.it.hcmus@gmail.com</a>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <span>💻</span>
+                <div>
+                  <strong style="display: block; font-size: 0.85rem; color: var(--text-secondary);">GitHub &amp; Open Source</strong>
+                  <a href="https://github.com/TruongNgocTai" target="_blank" rel="noopener noreferrer" style="font-weight: 600;">github.com/TruongNgocTai</a>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <span>🛡️</span>
+                <div>
+                  <strong style="display: block; font-size: 0.85rem; color: var(--text-secondary);">Cam kết Bảo mật (NDA)</strong>
+                  <span>Sẵn sàng ký thỏa thuận bảo mật thông tin (NDA) trước khi tiếp nhận tài liệu dự án.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consultation Form -->
+          <form id="consult-form" class="contact-form">
+            <div class="form-group">
+              <label for="client-name">Họ và tên / Tên doanh nghiệp *</label>
+              <input type="text" id="client-name" class="form-control" required placeholder="VD: Nguyễn Văn A - Công ty ABC" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-contact">Email hoặc Số điện thoại / Zalo *</label>
+              <input type="text" id="client-contact" class="form-control" required placeholder="VD: contact@company.vn / 09xx..." />
+            </div>
+
+            <div class="form-group">
+              <label for="client-service">Dịch vụ bạn đang quan tâm</label>
+              <select id="client-service" class="form-control">
+                <option value="Triển khai AI Local & Private RAG nội bộ">Triển khai AI Local &amp; Private RAG nội bộ</option>
+                <option value="Phát triển Hệ thống Web / Phần mềm quản trị">Phát triển Hệ thống Web / Phần mềm quản trị</option>
+                <option value="Tích hợp AI Agent & Tự động hóa quy trình">Tích hợp AI Agent &amp; Tự động hóa quy trình</option>
+                <option value="Tư vấn Hạ tầng GPU Server & Kiến trúc Hệ thống">Tư vấn Hạ tầng GPU Server &amp; Kiến trúc Hệ thống</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="client-message">Mô tả ngắn về bài toán / nhu cầu *</label>
+              <textarea id="client-message" class="form-control" rows="4" required placeholder="Mô tả sơ bộ mục tiêu hệ thống, số lượng người dùng dự kiến hoặc loại tài liệu cần AI xử lý..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">
+              Gửi yêu cầu Tư vấn Giải pháp &rarr;
+            </button>
+            <p id="form-status" style="display: none; font-size: 0.85rem; color: var(--accent-emerald); margin-top: 0.5rem;"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Trương Ngọc Tài</strong> &mdash; Chuyên trang Công nghệ Thông tin, AI &amp; Giải pháp Hệ thống Web / Local AI.
+      </div>
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="#dich-vu">Dịch vụ</a>
+        <a href="#blog">Blog</a>
+        <a href="llms.txt">llms.txt</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

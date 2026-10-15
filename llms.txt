@@ -1,0 +1,19 @@
+# Trương Ngọc Tài — Blog CNTT, AI & Giải pháp Hệ thống Web, AI Local
+
+> Chuyên trang chia sẻ kiến thức Công nghệ thông tin, Kiến trúc Hệ thống Web, AI ứng dụng và cung cấp dịch vụ phát triển Hệ thống Web theo yêu cầu, triển khai AI Local (Private LLM / RAG nội bộ) cho doanh nghiệp.
+
+## Dịch vụ cung cấp
+- Phát triển Hệ thống Web & Phần mềm quản trị doanh nghiệp (ERP, CRM, CMS, Portal, API/Microservices).
+- Triển khai Hệ thống AI Local & Private RAG (vLLM, Ollama, Qdrant, Hybrid Search, On-Premise LLM bảo mật dữ liệu 100%).
+- Tích hợp AI Agents, Tự động hóa quy trình nghiệp vụ (OCR chứng từ, Function Calling, MCP) & Tư vấn hạ tầng GPU Server.
+
+## Bài viết Kỹ thuật (Blog)
+- [Hướng dẫn triển khai Hệ thống AI Local & RAG nội bộ cho doanh nghiệp với vLLM và Qdrant](https://truongngoctai.github.io/posts/trien-khai-ai-local-rag-doanh-nghiep.html): Kiến trúc chi tiết giúp doanh nghiệp xây dựng hệ thống hỏi đáp tài liệu nội bộ (Private RAG) kết hợp Hybrid Search (Dense + BM25), Reranker và vLLM chạy hoàn toàn trong mạng LAN không cần Internet.
+- [Tối ưu phần cứng GPU & Lượng tử hóa (AWQ, GGUF, FP8) khi vận hành LLM Local](https://truongngoctai.github.io/posts/toi-uu-gpu-quantization-llm-local.html): Giải mã các chuẩn lượng tử hóa mô hình ngôn ngữ lớn: Sự khác biệt giữa GGUF, AWQ, GPTQ và FP8. Cách tính toán KV Cache, PagedAttention và tối ưu thông lượng phục vụ nhiều người dùng đồng thời.
+- [Tích hợp AI Agent vào Hệ thống Quản trị Web: Tự động hóa quy trình nghiệp vụ an toàn](https://truongngoctai.github.io/posts/tich-hop-ai-agent-he-thong-web.html): Vượt qua giới hạn của Chatbot đơn thuần: Thiết kế AI Agent có khả năng gọi hàm (Tool/Function Calling), truy vấn dữ liệu báo cáo theo quyền hạn người dùng (RBAC) và cơ chế Human-in-the-Loop chống sai sót.
+- [Kiến trúc Hệ thống Web chịu tải cao: Từ Modular Monolith đến Microservices thực chiến](https://truongngoctai.github.io/posts/kien-truc-he-thong-web-chiu-tai-cao.html): Khi nào doanh nghiệp nên bắt đầu với Modular Monolith và khi nào cần tách Microservices? Phân tích chiến lược Caching đa tầng với Redis, tối ưu truy vấn PostgreSQL và xử lý bất đồng bộ qua Message Queue.
+
+## Liên hệ
+- Website: https://truongngoctai.github.io/
+- Email: truongngoctai.it.hcmus@gmail.com
+- GitHub: https://github.com/TruongNgocTai

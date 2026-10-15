@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hướng dẫn triển khai Hệ thống AI Local &amp; RAG nội bộ cho doanh nghiệp với vLLM và Qdrant | Trương Ngọc Tài Blog</title>
+  <meta name="description" content="Kiến trúc chi tiết giúp doanh nghiệp xây dựng hệ thống hỏi đáp tài liệu nội bộ (Private RAG) kết hợp Hybrid Search (Dense + BM25), Reranker và vLLM chạy hoàn toàn trong mạng LAN không cần Internet." />
+  <meta name="author" content="Trương Ngọc Tài" />
+  <link rel="canonical" href="https://truongngoctai.github.io/posts/trien-khai-ai-local-rag-doanh-nghiep.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://truongngoctai.github.io/posts/trien-khai-ai-local-rag-doanh-nghiep.html" />
+  <meta property="og:title" content="Hướng dẫn triển khai Hệ thống AI Local &amp; RAG nội bộ cho doanh nghiệp với vLLM và Qdrant" />
+  <meta property="og:description" content="Kiến trúc chi tiết giúp doanh nghiệp xây dựng hệ thống hỏi đáp tài liệu nội bộ (Private RAG) kết hợp Hybrid Search (Dense + BM25), Reranker và vLLM chạy hoàn toàn trong mạng LAN không cần Internet." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Hướng dẫn triển khai Hệ thống AI Local &amp; RAG nội bộ cho doanh nghiệp với vLLM và Qdrant",
+    "description": "Kiến trúc chi tiết giúp doanh nghiệp xây dựng hệ thống hỏi đáp tài liệu nội bộ (Private RAG) kết hợp Hybrid Search (Dense + BM25), Reranker và vLLM chạy hoàn toàn trong mạng LAN không cần Internet.",
+    "datePublished": "2026-10-15",
+    "author": {
+      "@type": "Person",
+      "name": "Trương Ngọc Tài",
+      "url": "https://truongngoctai.github.io/"
+    },
+    "mainEntityOfPage": "https://truongngoctai.github.io/posts/trien-khai-ai-local-rag-doanh-nghiep.html"
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="../index.html" class="brand-logo">
+        <div class="brand-badge">TNT</div>
+        <div>
+          <span>Trương Ngọc Tài</span>
+          <span class="brand-sub">Web Systems &bull; Private Local AI</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Điều hướng">
+        <a href="../index.html#dich-vu">Dịch vụ</a>
+        <a href="../index.html#ai-local">Giải pháp AI Local</a>
+        <a href="../index.html#blog" class="active">Blog CNTT &amp; AI</a>
+        <a href="../index.html#lien-he">Liên hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Chuyển chế độ Sáng/Tối">☀️</button>
+        <a href="../index.html#lien-he" class="btn btn-primary">Tư vấn Dự án</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="article-container">
+    <a href="../index.html#blog" class="read-more" style="margin-bottom: 1.5rem; display: inline-flex;">&larr; Quay lại danh sách bài viết</a>
+
+    <article>
+      <header class="article-header">
+        <div class="post-meta">
+          <span class="post-category">AI &amp; Local LLM</span>
+          <span>15/10/2026</span>
+          <span>&bull; 8 phút đọc</span>
+        </div>
+        <h1>Hướng dẫn triển khai Hệ thống AI Local &amp; RAG nội bộ cho doanh nghiệp với vLLM và Qdrant</h1>
+        <p style="color: var(--text-secondary); font-size: 1.08rem;">Kiến trúc chi tiết giúp doanh nghiệp xây dựng hệ thống hỏi đáp tài liệu nội bộ (Private RAG) kết hợp Hybrid Search (Dense + BM25), Reranker và vLLM chạy hoàn toàn trong mạng LAN không cần Internet.</p>
+        <div class="tech-stack-pills" style="border: none; padding-top: 0.75rem;">
+          <span class="pill">#vLLM</span><span class="pill">#Qdrant</span><span class="pill">#PrivateRAG</span><span class="pill">#OnPremiseAI</span>
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p>Trong bối cảnh trí tuệ nhân tạo tạo sinh (Generative AI) bùng nổ, bài toán lớn nhất khiến các doanh nghiệp tài chính, sản xuất, y tế và pháp lý e ngại khi sử dụng các API đám mây (như OpenAI, Claude hay Gemini) chính là <strong>quyền riêng tư và bảo mật dữ liệu nội bộ</strong>. Không một tổ chức nào muốn tải hợp đồng thương mại, báo cáo tài chính hay mã nguồn độc quyền lên máy chủ bên thứ ba.</p>
+<p>Đó là lý do <strong>Hệ thống AI Local kết hợp Private RAG (Retrieval-Augmented Generation)</strong> trở thành kiến trúc tiêu chuẩn cho doanh nghiệp hiện đại. Bài viết này chia sẻ kiến trúc thực chiến để triển khai hệ thống RAG nội bộ đạt độ chính xác cao và độ trễ thấp.</p>
+<h2>1. Kiến trúc tổng thể của Hệ thống Private RAG Doanh nghiệp</h2>
+<p>Một hệ thống RAG cấp độ Production không chỉ đơn thuần là cắt văn bản (chunking) và nhúng vào Vector Database. Để trả lời chính xác các văn bản pháp규, SOP kỹ thuật và bảng biểu phức tạp bằng tiếng Việt, hệ thống cần 5 thành phần cốt lõi chạy hoàn toàn trong mạng nội bộ (On-Premise / Private LAN):</p>
+<ol>
+<li><strong>Document Ingestion &amp; Layout Parser</strong>: Bóc tách cấu trúc PDF, Word, Excel giữ nguyên ngữ cảnh bảng biểu và tiêu đề mục (sử dụng Docling hoặc Unstructured).</li>
+<li><strong>Embedding &amp; Reranking Local</strong>: Sử dụng mô hình đa ngôn ngữ mạnh cho tiếng Việt như <code>BAAI/bge-m3</code> (hỗ trợ cả Dense Vector lẫn Sparse/Lexical Vector) kết hợp <code>bge-reranker-v2-m3</code>.</li>
+<li><strong>Vector Database (Qdrant)</strong>: Lưu trữ vector kèm bộ lọc phân quyền truy cập theo phòng ban (Role-Based Access Control metadata filtering).</li>
+<li><strong>High-Throughput LLM Engine (vLLM)</strong>: Phục vụ các mô hình mã nguồn mở hàng đầu như <code>Qwen2.5-14B/32B-Instruct</code> hoặc <code>Llama-3.1</code> với kỹ thuật PagedAttention.</li>
+<li><strong>Enterprise Web Gateway</strong>: Giao diện hỏi đáp kèm trích dẫn trang tài liệu gốc và kiểm soát nhật ký truy vấn (Audit Log).</li>
+</ol>
+<h2>2. Triển khai vLLM và Qdrant bằng Docker Compose</h2>
+<p>Dưới đây là cấu hình <code>docker-compose.yml</code> mẫu để khởi chạy cụm <strong>Qdrant</strong> và <strong>vLLM</strong> trên máy chủ Linux có trang bị GPU NVIDIA:</p>
+<pre><code>services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: enterprise-qdrant
+    restart: always
+    ports:
+      - &quot;6333:6333&quot;
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+
+  vllm-engine:
+    image: vllm/vllm-openai:latest
+    container_name: enterprise-vllm
+    restart: always
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - &quot;8000:8000&quot;
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    command: &gt;
+      --model Qwen/Qwen2.5-14B-Instruct-AWQ
+      --quantization awq
+      --max-model-len 16384
+      --gpu-memory-utilization 0.88
+      --served-model-name local-enterprise-llm</code></pre>
+<blockquote><p style='margin:0'><strong>Lưu ý thực tế:</strong> Khi vận hành hoàn toàn Offline (Air-gapped), bạn chỉ cần tải trước trọng số mô hình (Model Weights) vào thư mục cục bộ và mount trực tiếp vào container cùng biến môi trường <code>HF_HUB_OFFLINE=1</code>.</p></blockquote>
+<h2>3. Bí quyết tăng độ chính xác cho tiếng Việt với Hybrid Search + Reranker</h2>
+<p>Nhiều hệ thống RAG thử nghiệm thất bại vì chỉ dùng tìm kiếm tương đồng ngữ nghĩa (Dense Vector Search). Khi người dùng tìm kiếm mã hợp đồng cụ thể như <code>HD-2026-089</code> hoặc mã linh kiện kỹ thuật, Dense Vector thường bỏ sót từ khóa chính xác.</p>
+<p>Giải pháp là kết hợp:</p>
+<ul>
+<li><strong>Dense Retrieval</strong> (hiểu ngữ nghĩa câu hỏi) + <strong>Sparse/BM25 Retrieval</strong> (khớp chính xác mã số, tên riêng, thuật ngữ viết tắt).</li>
+<li>Sau khi lấy ra Top-25 đoạn văn bản từ Qdrant, đưa qua bước <strong>Cross-Encoder Reranker</strong> (<code>bge-reranker-v2-m3</code>) để chấm điểm lại và chọn ra Top-5 đoạn liên quan nhất đưa vào Prompt của LLM.</li>
+<li>Thiết lập System Prompt yêu cầu mô hình <strong>chỉ trả lời dựa trên ngữ cảnh được cung cấp</strong> và đính kèm tên file, số trang tham chiếu để triệt tiêu hiện tượng ảo giác (Hallucination).</li>
+</ul>
+<h2>4. Phân quyền tài liệu (RBAC) ngay từ tầng Vector Database</h2>
+<p>Trong doanh nghiệp, nhân viên phòng Kinh doanh không được phép truy vấn tài liệu lương thưởng của phòng Nhân sự. Thay vì lọc sau khi LLM đã sinh câu trả lời, mỗi đoạn văn bản (chunk) khi đưa vào Qdrant cần gắn nhãn <code>allowed_roles</code>:</p>
+<pre><code>from qdrant_client.models import Filter, FieldCondition, MatchAny
+
+search_filter = Filter(
+    must=[
+        FieldCondition(
+            key=&quot;allowed_roles&quot;,
+            match=MatchAny(any=current_user.roles)
+        )
+    ]
+)</code></pre>
+<p>Nhờ cơ chế tiền lọc (Pre-filtering) ngay trên chỉ mục HNSW của Qdrant, dữ liệu nhạy cảm được cách ly tuyệt đối ở cấp độ truy vấn cơ sở dữ liệu.</p>
+      </div>
+    </article>
+
+    <!-- Call to Action Box inside Post -->
+    <div class="panel-card" style="margin-top: 3.5rem; background: var(--gradient-surface);">
+      <h3>Bạn cần tư vấn triển khai Hệ thống Web hoặc AI Local cho doanh nghiệp?</h3>
+      <p style="color: var(--text-secondary); margin: 0.5rem 0 1.25rem;">
+        Tôi cung cấp dịch vụ thiết kế kiến trúc, phát triển hệ thống phần mềm Web theo yêu cầu và triển khai giải pháp Private LLM / RAG chạy nội bộ bảo mật dữ liệu 100%.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.85rem;">
+        <a href="../index.html#lien-he" class="btn btn-primary">Nhận tư vấn Kiến trúc &amp; Báo giá &rarr;</a>
+        <a href="../index.html#ai-local" class="btn btn-outline">Thử công cụ tính cấu hình GPU</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Trương Ngọc Tài</strong> &mdash; Blog CNTT, AI &amp; Dịch vụ Phát triển Hệ thống Web, AI Local.
+      </div>
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="../index.html">Trang chủ</a>
+        <a href="../index.html#dich-vu">Dịch vụ</a>
+        <a href="../index.html#lien-he">Liên hệ</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
